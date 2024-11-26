@@ -148,9 +148,26 @@ void insertHT (HashTable * ht, Movie movie) {
 
 
 
-void statisticsHT (HashTable * ht) {
+void statisticsHT(HashTable *ht) {
+    int filled = 0, empty = 0, maxChainLength = 0;
+    for (int i = 0; i < ht->sizeTable; ++i) {
+        if (ht->elements[i] == NULL) {
+            empty++;
+        } else {
+            filled++;
+            int chainLength = 0;
+            LLNode *curr = ht->elements[i];
+            while (curr != NULL) {
+                chainLength++;
+                curr = curr->next;
+            }
+            maxChainLength = std::max(maxChainLength, chainLength);
+        }
+    }
 
-	return;
+    std::cout << "Number of filled locations: " << filled << std::endl;
+    std::cout << "Number of empty locations: " << empty << std::endl;
+    std::cout << "Length of the longest chain: " << maxChainLength << std::endl;
 }
 
 
